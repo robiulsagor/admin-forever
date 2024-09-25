@@ -19,9 +19,7 @@ const Login = ({ setToken }) => {
             })
             if (!res.data.success) {
                 toast.error(res.data.message || 'Error while logging in!')
-
             } else {
-                localStorage.setItem('token', res.data.token)
                 setToken(res.data.token)
                 navigate("/")
             }
