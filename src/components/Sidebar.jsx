@@ -5,7 +5,7 @@ const Sidebar = () => {
 
 
     return (
-        <div className="w-[18%] mt-6 border-r-2 min-h-screen">
+        <div className="w-[18%] pt-6 border-r-2 min-h-screen">
             <div className="ml-[20%]  flex flex-col gap-6">
                 <NavLink to='/add' className={({ isActive }) =>
                     `flex items-center gap-3 border border-gray-300 border-r-0 px-4 py-2 rounded-l hover:bg-slate-200 transition ${isActive ? "bg-slate-200" : ""

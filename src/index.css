@@ -7,3 +7,7 @@
 *{
     font-family: "Outfit", system-ui;
 }
+
+label{
+    @apply mb-2 block text-gray-700
+}
