@@ -21,13 +21,13 @@ function App() {
   }, [token])
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className=" bg-gray-50">
       {token === "" ? <Login setToken={setToken} /> : <>
         <Navbar setToken={setToken} />
         <hr />
         <div className="w-full flex">
           <Sidebar />
-          <div className="w-[70%] mx-auto ml-[max(5vw, 25px)] text-base">
+          <div className="w-[80%] lg:w-[70%] mx-auto ml-[max(5vw, 25px)] text-base">
             <Routes>
               <Route path="/add" element={<Add token={token} />} />
               <Route path="/list" element={<List token={token} />} />

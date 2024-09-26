@@ -1,8 +1,13 @@
 import { useState } from "react"
 import { assets } from "../assets/assets"
 import { toast } from "react-toastify"
+import axios from "axios"
+import { backendUrl } from "../App"
 
-const Add = () => {
+// eslint-disable-next-line react/prop-types
+const Add = ({ token }) => {
+  const [loading, setLoading] = useState(false)
+
   const [image1, setImage1] = useState(false)
   const [image2, setImage2] = useState(false)
   const [image3, setImage3] = useState(false)
@@ -14,7 +19,7 @@ const Add = () => {
   const [subCategory, setSubCategory] = useState('')
   const [price, setPrice] = useState('')
   const [sizes, setSizes] = useState([])
-  const [bestseller, setBestSeller] = useState()
+  const [bestseller, setBestSeller] = useState(false)
 
   const sizeArray = ['SM', 'M', 'L', 'XL', 'XXL']
 
@@ -26,7 +31,7 @@ const Add = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!sizes.length) {
       toast.error("Please select a size!")
@@ -34,15 +39,55 @@ const Add = () => {
     if (!image1) {
       toast.error("Please upload at least one image!")
     }
-    console.log(name, description, category, subCategory, price, sizes, bestseller)
+
+    setLoading(true)
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('description', description)
+    formData.append('category', category)
+    formData.append('subCategory', subCategory)
+    formData.append('price', price)
+    formData.append('sizes', JSON.stringify(sizes))
+    formData.append('bestseller', bestseller)
+    image1 && formData.append('image1', image1)
+    image2 && formData.append('image2', image2)
+    image3 && formData.append('image3', image3)
+    image4 && formData.append('image4', image4)
+
+    try {
+      const res = await axios.post(backendUrl + '/product/add', formData, { headers: { token } })
+      console.log(res)
+      if (res.data.success) {
+        toast.success("Product added successfully!")
+        // reset the form
+        setName('')
+        setDescription('')
+        setCategory('')
+        setSubCategory('')
+        setPrice('')
+        setSizes([])
+        setBestSeller(false)
+        setImage1(false)
+        setImage2(false)
+        setImage3(false)
+        setImage4(false)
+      } else {
+        toast.error(res.data.message)
+      }
+    } catch (error) {
+      console.log(error?.response?.data?.message)
+      toast.error("Error - " + error?.response?.data?.message || "Something went wrong!")
+    } finally {
+      setLoading(false)
+    }
   }
 
 
   return (
-    <div className="w-full max-w-[500px] pt-8">
+    <div className="w-full max-w-[500px] pt-8 py-10">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <h2>Upload Image</h2>
+          <p className="text-gray-700 ">Upload Image</p>
 
           {/* image div */}
           <div className="flex flex-wrap gap-3 items-center mt-2 justify-center sm:justify-start">
@@ -135,7 +180,9 @@ const Add = () => {
           <label htmlFor="bestseller" className="mb-0 select-none cursor-pointer" >Add to Bestseller</label>
         </div>
 
-        <button className="bg-gray-900 text-white px-8 py-2 rounded mt-8 hover:scale-110 transition">Add Product</button>
+        <button disabled={loading} className="bg-gray-900 text-white px-8 py-2 rounded mt-8 hover:scale-110 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
+          {loading ? "Loading..." : "Add Product"}
+        </button>
 
       </form>
     </div>
