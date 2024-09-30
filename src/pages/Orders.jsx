@@ -29,12 +29,23 @@ const Orders = ({ token }) => {
     fetchOrders()
   }, [])
 
-  console.log(orders)
+  const handleStatusChange = async (id, status) => {
+    try {
+      const res = await axios.post(`${backendUrl}/order/status`, { id, status }, { headers: { token } })
+      if (res.data.success) {
+        toast.success("Order status updated successfully")
+        setOrders(orders.map(order => order._id === id ? { ...order, status } : order))
+      } else {
+        toast.error(res.data.message || "Error in updating order status")
+      }
+    } catch (error) {
+      toast.error(error.message || "Error in updating order status")
+    }
+  }
 
   return (
     <div className="w-full pt-4 pb-10">
       <h2 className="text-xl font-medium text-gray-700 mb-3">All Orders</h2>
-
 
       <div>
         {loading ? <Loader height={'40vh'} /> : orders.length > 0 ? orders.map((order, index) => (
@@ -60,11 +71,11 @@ const Orders = ({ token }) => {
             <p className=" text-gray-600 text-[15px]">${order.amount} </p>
 
             <div>
-              <select name="" id="" className="border border-gray-500 rounded p-1 outline-none font-medium px-4 py-2 text-[15px]">
-                <option value="OrderPlaced">Pending</option>
+              <select value={order.status} onChange={e => handleStatusChange(order._id, e.target.value)} name="" id="" className="border border-gray-500 rounded p-1 outline-none font-medium px-4 py-2 text-[15px]">
+                <option value="Order Placed">Pending</option>
                 <option value="Packing">Packing</option>
                 <option value="Shipped">Shipped</option>
-                <option value="OutForDelivery">Out for Delivery</option>
+                <option value="Out for delivery">Out for Delivery</option>
                 <option value="Delivered">Delivered</option>
               </select>
             </div>
