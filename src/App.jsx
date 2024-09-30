@@ -37,7 +37,7 @@ function App() {
         </div>
       </>}
 
-      <ToastContainer />
+      <ToastContainer closeOnClick autoClose={1000} />
     </div>
   )
 }

@@ -19,7 +19,7 @@ const Add = ({ token }) => {
   const [subCategory, setSubCategory] = useState('')
   const [price, setPrice] = useState('')
   const [sizes, setSizes] = useState([])
-  const [bestseller, setBestSeller] = useState(false)
+  const [bestSeller, setBestSeller] = useState(false)
 
   const sizeArray = ['SM', 'M', 'L', 'XL', 'XXL']
 
@@ -48,7 +48,7 @@ const Add = ({ token }) => {
     formData.append('subCategory', subCategory)
     formData.append('price', price)
     formData.append('sizes', JSON.stringify(sizes))
-    formData.append('bestseller', bestseller)
+    formData.append('bestSeller', bestSeller)
     image1 && formData.append('image1', image1)
     image2 && formData.append('image2', image2)
     image3 && formData.append('image3', image3)
@@ -56,7 +56,6 @@ const Add = ({ token }) => {
 
     try {
       const res = await axios.post(backendUrl + '/product/add', formData, { headers: { token } })
-      console.log(res)
       if (res.data.success) {
         toast.success("Product added successfully!")
         // reset the form
@@ -176,8 +175,8 @@ const Add = ({ token }) => {
         </div>
 
         <div className="flex gap-2 items-center mt-7">
-          <input type="checkbox" checked={bestseller} onChange={e => setBestSeller(e.target.checked)} name="" id="bestseller" />
-          <label htmlFor="bestseller" className="mb-0 select-none cursor-pointer" >Add to Bestseller</label>
+          <input type="checkbox" checked={bestSeller} onChange={e => setBestSeller(e.target.checked)} name="" id="bestSeller" />
+          <label htmlFor="bestSeller" className="mb-0 select-none cursor-pointer" >Add to Bestseller</label>
         </div>
 
         <button disabled={loading} className="bg-gray-900 text-white px-8 py-2 rounded mt-8 hover:scale-110 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
