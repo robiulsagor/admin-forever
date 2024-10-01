@@ -6,8 +6,8 @@ import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 
 const Login = ({ setToken }) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('sagor@gmail.com')
+    const [password, setPassword] = useState('sagor23')
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
