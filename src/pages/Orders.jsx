@@ -49,7 +49,8 @@ const Orders = ({ token }) => {
 
       <div>
         {loading ? <Loader height={'40vh'} /> : orders.length > 0 ? orders.map((order, index) => (
-          <div key={index} className="border border-gray-300 rounded  mb-2 grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] text-sm text-gray-700 py-12 px-8">
+          <div key={index} className={`border border-gray-300 rounded  mb-2 grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] text-sm text-gray-700 py-12 px-8
+          ${order.payment ? "" : "bg-red-50"}`}>
             <img src={assets.parcel_icon} className="w-10 h-10 md:w-12 md:h-12 object-cover rounded" alt="" />
 
             <div className="flex flex-col gap-1 ">
@@ -64,7 +65,8 @@ const Orders = ({ token }) => {
 
             <div>
               <p className="text-[15px]">Items: {order.items.length} </p>
-              <p className="mt-2">Method: {order.paymentMethod} </p>
+              <p className="mt-3">Method:<span className={` font-semibold`}> {order.paymentMethod} </span> </p>
+              <p className={`${order.payment ? "" : "text-red-500"} mt-0.5`}>Payment: <span className={` font-semibold`}>{order.payment ? "Done" : "Pending"} </span> </p>
               <p className="mt-0.5">Date: {new Date(order.date).toLocaleDateString()} </p>
             </div>
 

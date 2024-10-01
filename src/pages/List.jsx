@@ -10,7 +10,6 @@ const List = ({ token }) => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
-  console.log(products);
 
   useEffect(() => {
     const fetchProducts = async () => {
