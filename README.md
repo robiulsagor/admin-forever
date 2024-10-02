@@ -1,8 +1,13 @@
-# React + Vite
+# ForeverShop - Online Shopping Platform - ADMIN PANEL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##  Overview
 
-Currently, two official plugins are available:
+ForeverShop is an e-commerce platform that allows users to browse and purchase products from various categories. The platform features a user-friendly interface, secure payment processing, and efficient order management. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Website live link is: 
+[ForeverShop](https://frontend-forever-lac.vercel.app/)
+
+## Admin panel live link: 
+[ForeverShop](https://admin-forever.vercel.app/)
+
+Thank you.
